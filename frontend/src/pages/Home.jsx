@@ -1,14 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import heroBg from '../assets/hero-bg.webp'
+import bgCityAerial from '../assets/bg-city-aerial.jpg'
+import bgGisCadastral from '../assets/bg-gis-cadastral.jpg'
+import bgBlueprint from '../assets/bg-blueprint.png'
+
+const backgrounds = [
+  { url: heroBg, name: '3D Drone City' },
+  { url: bgCityAerial, name: 'Aerial Metropolis' },
+  { url: bgGisCadastral, name: '3D GIS Cadastral Grid' },
+  { url: bgBlueprint, name: 'Architectural Blueprint' },
+]
 
 const Home = () => {
   const [showOptions, setShowOptions] = useState(false)
+  const [bgIndex, setBgIndex] = useState(0)
+
+  // Auto-cycle backgrounds every 6 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setBgIndex((prev) => (prev + 1) % backgrounds.length)
+    }, 6000)
+    return () => clearInterval(timer)
+  }, [])
 
   return (
-    <div
-      className="relative h-screen w-screen overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${heroBg})` }}
-    >
+    <div className="relative h-screen w-screen overflow-hidden bg-gray-950">
+      {/* ── Background Crossfade Slideshow ── */}
+      {backgrounds.map((bg, idx) => (
+        <div
+          key={bg.name}
+          className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${
+            bgIndex === idx ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+          }`}
+          style={{
+            backgroundImage: `url(${bg.url})`,
+            transition: 'opacity 1s ease-in-out, transform 8s ease-out',
+          }}
+        />
+      ))}
+
+      {/* Dim overlay */}
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-[1px]" />
+
       {/* Animated 3D scan points falling from top */}
       <div className="pointer-events-none absolute inset-0 z-10">
         {Array.from({ length: 40 }).map((_, i) => (
@@ -52,13 +85,13 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Dark overlay + content */}
-      <div className="relative z-30 flex h-full w-full flex-col items-center justify-center bg-black/40 px-4 text-center text-white">
-        <h1 className="hero-title mb-4 text-5xl font-bold tracking-tight md:text-7xl">
+      {/* Main Content */}
+      <div className="relative z-30 flex h-full w-full flex-col items-center justify-center px-4 text-center text-white">
+        <h1 className="hero-title mb-4 text-5xl font-extrabold tracking-tight md:text-7xl">
           3D-ULPIN
         </h1>
-        <p className="hero-subtitle mb-8 max-w-2xl text-lg text-gray-200 md:text-xl">
-          Unique Land Parcel Identification Number — Smart Urban Planning with 3D Visualization
+        <p className="hero-subtitle mb-8 max-w-2xl text-lg text-gray-200 md:text-xl font-medium">
+          Unique Land Parcel Identification Number — Smart Urban Planning with 3D Cadastral Visualization
         </p>
 
         {/* Step 1: Continue button */}
@@ -66,7 +99,7 @@ const Home = () => {
           <div className="hero-buttons">
             <button
               onClick={() => setShowOptions(true)}
-              className="rounded-lg bg-blue-600 px-10 py-3 text-lg font-semibold transition hover:bg-blue-700 hover:scale-105 active:scale-95"
+              className="rounded-2xl bg-blue-600 px-10 py-4 text-lg font-bold text-white shadow-xl shadow-blue-500/25 transition-all duration-300 hover:bg-blue-700 hover:scale-105 active:scale-95"
             >
               Continue →
             </button>
@@ -75,25 +108,25 @@ const Home = () => {
 
         {/* Step 2: Login options */}
         {showOptions && (
-          <div className="options-panel flex flex-col items-center gap-6">
-            <p className="text-lg text-gray-300">Choose how to continue</p>
+          <div className="options-panel flex flex-col items-center gap-5">
+            <p className="text-lg text-gray-300">Choose portal to continue</p>
 
             <a
               href="/login"
-              className="min-w-[260px] rounded-xl bg-blue-600 px-8 py-4 text-center text-lg font-semibold transition hover:bg-blue-700 hover:scale-105 active:scale-95"
+              className="min-w-[280px] rounded-2xl bg-blue-600 px-8 py-4 text-center text-lg font-bold text-white shadow-xl shadow-blue-500/25 transition-all duration-300 hover:bg-blue-700 hover:scale-105 active:scale-95"
             >
               🔑 User Login
             </a>
 
             <div className="flex items-center gap-3">
               <span className="h-px w-16 bg-gray-500" />
-              <span className="text-sm text-gray-400">or</span>
+              <span className="text-sm text-gray-400 font-medium">or</span>
               <span className="h-px w-16 bg-gray-500" />
             </div>
 
             <a
               href="/admin/login"
-              className="min-w-[260px] rounded-xl bg-emerald-600 px-8 py-4 text-center text-lg font-semibold transition hover:bg-emerald-700 hover:scale-105 active:scale-95"
+              className="min-w-[280px] rounded-2xl bg-emerald-600 px-8 py-4 text-center text-lg font-bold text-white shadow-xl shadow-emerald-500/25 transition-all duration-300 hover:bg-emerald-700 hover:scale-105 active:scale-95"
             >
               🛡️ Admin Login
             </a>
@@ -106,6 +139,23 @@ const Home = () => {
             </button>
           </div>
         )}
+      </div>
+
+      {/* ── Background Switcher Pills (Bottom-Right) ── */}
+      <div className="absolute bottom-6 right-6 z-30 flex items-center gap-2 rounded-2xl border border-white/10 bg-black/60 px-3.5 py-2 backdrop-blur-md">
+        <span className="text-[10px] uppercase font-bold tracking-wider text-gray-400 mr-1 hidden sm:inline">
+          Background:
+        </span>
+        {backgrounds.map((bg, idx) => (
+          <button
+            key={bg.name}
+            onClick={() => setBgIndex(idx)}
+            title={bg.name}
+            className={`h-2.5 rounded-full transition-all duration-300 ${
+              bgIndex === idx ? 'w-8 bg-blue-500' : 'w-2.5 bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
       </div>
 
       <style>{`

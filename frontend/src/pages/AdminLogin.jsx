@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { setCurrentUser } from '../utils/propertyStore'
-import heroBg from '../assets/hero-bg.webp'
+import bgBlueprint from '../assets/bg-blueprint.png'
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('')
@@ -32,7 +32,7 @@ const AdminLogin = () => {
   return (
     <div
       className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat px-4"
-      style={{ backgroundImage: `url(${heroBg})` }}
+      style={{ backgroundImage: `url(${bgBlueprint})` }}
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 

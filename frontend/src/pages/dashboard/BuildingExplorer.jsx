@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getProperties } from '../../utils/propertyStore'
+import bgBlueprint from '../../assets/bg-blueprint.png'
 
 const BuildingExplorer = () => {
   const navigate = useNavigate()
@@ -78,9 +79,13 @@ const BuildingExplorer = () => {
         )}
       </div>
 
-      {/* Building Header Card */}
-      <div className="mb-8 rounded-3xl bg-gradient-to-r from-blue-600 to-cyan-600 p-6 sm:p-8 text-white shadow-lg">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+      {/* Building Header Card with Blueprint Background */}
+      <div
+        className="relative mb-8 overflow-hidden rounded-3xl bg-cover bg-center p-6 sm:p-8 text-white shadow-xl"
+        style={{ backgroundImage: `url(${bgBlueprint})` }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-slate-900/85 to-indigo-900/90 backdrop-blur-[1px]" />
+        <div className="relative z-10 flex flex-wrap items-center justify-between gap-4">
           <div>
             <span className="rounded-lg bg-white/20 px-3 py-1 font-mono text-xs font-bold uppercase tracking-wider">
               {activeBuilding.ulpin}

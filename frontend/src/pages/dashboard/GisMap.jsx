@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getProperties } from '../../utils/propertyStore'
+import bgGisCadastral from '../../assets/bg-gis-cadastral.jpg'
 
 const GisMap = () => {
   const navigate = useNavigate()
@@ -39,7 +40,13 @@ const GisMap = () => {
   return (
     <div className="flex h-[calc(100vh-5rem)] flex-col lg:flex-row overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
       {/* Map Interactive Area */}
-      <div className="relative flex-1 bg-gradient-to-br from-slate-900 via-gray-900 to-slate-950 overflow-hidden">
+      <div
+        className="relative flex-1 bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={{ backgroundImage: `url(${bgGisCadastral})` }}
+      >
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-[2px]" />
+
         {/* Animated Cadastral Grid */}
         <div
           className="absolute inset-0 opacity-20 pointer-events-none"

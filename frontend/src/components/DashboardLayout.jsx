@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { getCurrentUser, clearCurrentUser } from '../utils/propertyStore'
-import heroBg from '../assets/hero-bg.webp'
+import bgGisCadastral from '../assets/bg-gis-cadastral.jpg'
 
 /* ── Navigation config ── */
 const commonLinks = [
@@ -65,7 +65,7 @@ const DashboardLayout = ({ role = 'user', children }) => {
   return (
     <div
       className="relative flex h-screen w-screen overflow-hidden bg-gray-950 bg-cover bg-center bg-no-repeat"
-      style={{ backgroundImage: `url(${heroBg})` }}
+      style={{ backgroundImage: `url(${bgGisCadastral})` }}
     >
       {/* Dimmed background overlay */}
       <div className="absolute inset-0 bg-black/65 backdrop-blur-sm" />

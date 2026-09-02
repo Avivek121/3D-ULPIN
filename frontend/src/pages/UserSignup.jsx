@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { setCurrentUser } from '../utils/propertyStore'
 import userAvatar from '../assets/user-avatar.png'
-import heroBg from '../assets/hero-bg.webp'
+import bgCityAerial from '../assets/bg-city-aerial.jpg'
 
 const UserSignup = () => {
   const [name, setName] = useState('')
@@ -33,7 +33,7 @@ const UserSignup = () => {
   return (
     <div
       className="relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat px-4"
-      style={{ backgroundImage: `url(${heroBg})` }}
+      style={{ backgroundImage: `url(${bgCityAerial})` }}
     >
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
 
